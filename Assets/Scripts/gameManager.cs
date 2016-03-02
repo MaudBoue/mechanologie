@@ -16,4 +16,13 @@ public class gameManager : MonoBehaviour {
 		}
 	
 	}
+
+
+	public void recommencer() {
+		Application.LoadLevel (Application.loadedLevel);
+	}
+
+	public void quitter() {
+		Application.Quit();
+	}
 }
