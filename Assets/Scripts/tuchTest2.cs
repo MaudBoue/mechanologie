@@ -5,8 +5,9 @@ public class tuchTest2 : MonoBehaviour {
 	
 	public Vector2 speed = new Vector2(10,10);
 	private Vector3 movement;
+	private float addedRot;
 	private float rot;
-	
+
 	private Vector3 rotVect;
 
 	public float maxRot;
@@ -27,6 +28,7 @@ public class tuchTest2 : MonoBehaviour {
 	void Start () {
 		rigid = GetComponent<Rigidbody> ();
 		rot = 0;
+		addedRot = 0;
 		tourne = false;
 		trace = tracePlat;
 		mainCamera = GameObject.FindObjectOfType<Camera> ();
@@ -47,10 +49,20 @@ public class tuchTest2 : MonoBehaviour {
 				Debug.Log("tourne");
 			}
 			if (tourne)	{
-				rot += speed.x * inputX;
+				if (inputX >= 0 ) addedRot = Mathf.Clamp(speed.x * inputX - minRot,0,maxRot);
+				if (inputX < 0 ) addedRot = Mathf.Clamp(speed.x * inputX - minRot,-maxRot,0);
+				//addedRot = speed.x * inputX;
+				rot += addedRot;
 			}
 				
-		} 
+		} // fin de tuchmove
+
+		// pour glissage volontaire ? var vitesse / truc qui dit si on a courru avant ? : qui enregistre la vitesse ?
+		/*if (Input.touchCount > 1 && Input.GetTouch (0).phase == TouchPhase.Stationary) {
+		
+		}*/
+
+		// pour inertie
 		else {
 			if ( movement.z != 0) {
 				Vector3 velocity = Vector3.zero;
@@ -60,19 +72,26 @@ public class tuchTest2 : MonoBehaviour {
 				//movement = new Vector3( 0,rigid.velocity.y,newZ);
 				}
 			else movement = new Vector3( 0,rigid.velocity.y,0);
-
-		}
+			/*if (addedRot != 0) {
+				float refFloat = 1;
+				addedRot = Mathf.SmoothDamp(addedRot,0,ref refFloat, 0.5f);*/
 			
-			if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began){
+		} 
+			
+		// commence touché
+		if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began){
 			GameObject newTrace = Instantiate(trace);
 			Vector3 tuchPosInWordlSpace = mainCamera.ScreenToWorldPoint(new Vector3 (Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 8.5f) );
 			newTrace.transform.position = new Vector3 (tuchPosInWordlSpace.x, transform.position.y - 0.5f, tuchPosInWordlSpace.z);
 			}
 
+		// lache touché
 		if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount-1).phase == TouchPhase.Ended){
 			tourne = false;		
-			Debug.Log ("tourne plus");}
+			Debug.Log ("tourne plus");
 		}
+
+	} // fin Uodate
 	
 	void FixedUpdate () {
 		rigid.velocity = Quaternion.Euler(0,rot,0) * movement;	
