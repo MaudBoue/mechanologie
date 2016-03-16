@@ -7,6 +7,7 @@ public class zoneBallon : MonoBehaviour {
 	public ballon codeBallon;
 	public GameObject halo;
 
+
 	private tuchTest2 player;
 
 	// Use this for initialization
@@ -27,7 +28,7 @@ public class zoneBallon : MonoBehaviour {
 			codeBallon.enabled = true;
 			halo.SetActive(true);
 			Debug.Log ("ballon");
-			player.modif = 0.5f;
+			//player.modif = 0.5f;
 		}
 	}
 
@@ -37,7 +38,7 @@ public class zoneBallon : MonoBehaviour {
 			codeBallon.enabled = false;
 			halo.SetActive(false);
 			Debug.Log ("marche");
-			player.modif = 1;
+			//player.modif = 1;
 		}
 	}
 

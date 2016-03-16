@@ -8,6 +8,8 @@ public class flaqueRalenti2 : MonoBehaviour {
 
 	private tuchTest2 perso;
 	private move3 persoSansTuch;
+
+	public GameObject splushEau;
 	
 	void Awake(){
 		goutesdeau = GameObject.Find ("goutesdEau");
@@ -28,6 +30,9 @@ public class flaqueRalenti2 : MonoBehaviour {
 		if (coll.gameObject.tag == "Player") {
 			persoSansTuch.estDansLeau();
 			perso.estDansLeau();
+		}
+		if (coll.gameObject.tag == "ballon") {
+			Instantiate(splushEau, new Vector3(coll.transform.position.x,coll.transform.position.y-1,coll.transform.position.z), coll.transform.rotation);
 		}
 	}
 	
