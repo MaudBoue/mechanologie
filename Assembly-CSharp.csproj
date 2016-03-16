@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\TouchManager.cs" />
+     <Compile Include="Assets\Scripts\ballon.cs" />
      <Compile Include="Assets\Scripts\bancDeSable.cs" />
      <Compile Include="Assets\Scripts\cameraFollow.cs" />
      <Compile Include="Assets\Scripts\cameraFollowRotate.cs" />
@@ -60,6 +61,7 @@
      <Compile Include="Assets\Scripts\touchTest.cs" />
      <Compile Include="Assets\Scripts\traceDePas.cs" />
      <Compile Include="Assets\Scripts\tuchTest2.cs" />
+     <Compile Include="Assets\zoneBallon.cs" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
      <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />

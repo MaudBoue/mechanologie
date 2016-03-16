@@ -22,6 +22,7 @@ public class tuchTest2 : MonoBehaviour {
 	public GameObject tracePlat;
 	public GameObject traceSable;
 	public GameObject traceEau;
+	public float modif = 1;
 	
 	
 	// Use this for initialization
@@ -38,15 +39,12 @@ public class tuchTest2 : MonoBehaviour {
 	void Update () {
 		
 		if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved) {
-			Debug.Log ("touché");
-
 			float inputX = -Input.GetTouch(0).deltaPosition.x;
 			float inputZ = -Input.GetTouch (0).deltaPosition.y;	
 
 			movement = new Vector3 (0, rigid.velocity.y, speed.y * inputZ);
 			if (inputX > minRot || inputX < -minRot) {
 				tourne = true;
-				Debug.Log("tourne");
 			}
 			if (tourne)	{
 				if (inputX >= 0 ) addedRot = Mathf.Clamp(speed.x * inputX - minRot,0,maxRot);
@@ -58,7 +56,7 @@ public class tuchTest2 : MonoBehaviour {
 		} // fin de tuchmove
 
 		// pour glissage volontaire ? var vitesse / truc qui dit si on a courru avant ? : qui enregistre la vitesse ?
-		/*if (Input.touchCount > 1 && Input.GetTouch (0).phase == TouchPhase.Stationary) {
+		/*if (Input.touchCount == 2 && Input.GetTouch (0).phase == TouchPhase.Stationary && && Input.GetTouch (1).phase == TouchPhase.Stationary) {
 		
 		}*/
 
@@ -88,13 +86,12 @@ public class tuchTest2 : MonoBehaviour {
 		// lache touché
 		if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount-1).phase == TouchPhase.Ended){
 			tourne = false;		
-			Debug.Log ("tourne plus");
 		}
 
 	} // fin Uodate
 	
 	void FixedUpdate () {
-		rigid.velocity = Quaternion.Euler(0,rot,0) * movement;	
+		rigid.velocity = Quaternion.Euler(0,rot,0) * movement * modif;	
 		rigid.rotation = Quaternion.Euler (0, rot, 0);	
 
 		/*rigid.AddRelativeForce (movementForce);
@@ -115,5 +112,8 @@ public class tuchTest2 : MonoBehaviour {
 		trace = traceEau;
 		Debug.Log ("eau");
 	}
+
+	public float getRot () {
+		return rot; }
 
 }
